@@ -12,7 +12,7 @@ public class ConfigReader {
 
         Properties prop = new Properties();
         FileInputStream fp
-                = new FileInputStream("resources\\confing.properties");
+                = new FileInputStream("src\\main\\resources\\project.properties");
         // load a properties file
         prop.load(fp);
         // get the property value and print it out

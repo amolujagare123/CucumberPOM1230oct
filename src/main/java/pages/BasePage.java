@@ -33,8 +33,8 @@ public class BasePage {
 				.pollingEvery(Duration.ofSeconds(5)) // every 5 seconds
 				.ignoring(NoSuchElementException.class)
 				.ignoring(StaleElementReferenceException.class)
-				.ignoring(ElementClickInterceptedException.class)
-				.ignoring(ElementNotInteractableException.class)
+				//.ignoring(ElementClickInterceptedException.class)
+				//.ignoring(ElementNotInteractableException.class)
 				.ignoring(Throwable.class)
 				.withMessage(
 						"Webdriver waited for 50 seconds but still could not find the element therefore Timeout Exception has been thrown");
@@ -65,6 +65,8 @@ public class BasePage {
 	public void clickOn(By locator) {
 
        // driver.findElement(By.xpath("")).click();
+
+		//getDriver().findElement(locator).click();
 		webAction(locator).click();
 
 		//SharedSD.getDriver().findElement(locator).click();
