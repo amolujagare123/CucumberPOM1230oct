@@ -8,12 +8,14 @@ Feature:  darksky whether page testing (darksky.net - whether forecasting websit
 
 
 #2
+  @timelist
   Scenario: Verify timeline is displayed in correct format
     Given I am on Darksky Home Page
     Then I verify timeline is displayed with two hours incremented
 
 
 #3
+  @currentDay
   Scenario: Verify individual day temp timeline
     Given I am on Darksky Home Page
     Then I verify todays lowest and highest temp is displayed correctly

@@ -6,7 +6,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions (features = "Features" , glue = "StepDefinitions"
-, tags = "@verifyTemperature")
+, tags = "@starVerify")
 
 public class TestRunner {
 }
