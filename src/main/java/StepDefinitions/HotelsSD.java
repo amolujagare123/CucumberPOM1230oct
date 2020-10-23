@@ -1,5 +1,6 @@
 package StepDefinitions;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -8,7 +9,6 @@ import pages.HotelsHome;
 import pages.HotelsSearchResult;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
 import static StepDefinitions.SharedSD.getDriver;
@@ -59,4 +59,68 @@ HotelsSearchResult hotelsSearchResult = new HotelsSearchResult();
 
 
     }
+
+    @Then("^I verify system displays all hotels within \"([^\"]*)\" Km radius of airport$")
+    public void i_verify_system_displays_all_hotels_within_something_km_radius_of_airport(String expectedDistanceStr) throws Throwable {
+
+        ArrayList<Double> distList =hotelsSearchResult.getDistlist();
+        System.out.println(distList);
+
+        Double expectedDistance = Double.parseDouble(expectedDistanceStr);
+
+        boolean flag = true;
+        ArrayList<Double> greterDistList = new ArrayList<>();
+
+        for (int i=0;i<distList.size();i++)
+        {
+           if(distList.get(i)> expectedDistance)
+           {
+               flag = false;
+               greterDistList.add(distList.get(i));
+           }
+        }
+
+        Assert.assertTrue(flag,"some distances are greater than:"+expectedDistance+
+                " Thse are:"+greterDistList);
+
+
+    }
+
+    @And("^I verify \"([^\"]*)\" is within radius$")
+    public void i_verify_something_is_within_radius(String hotelname) {
+
+        ArrayList<String> hotelList = hotelsSearchResult.getHotelList();
+
+        boolean flag = false;
+
+        for(int i=0;i<hotelList.size();i++)
+        {
+            if(hotelList.get(i).contains(hotelname))
+            {
+                flag = true;
+                break;
+            }
+        }
+
+        Assert.assertTrue(flag,"This hotel is not in the range");
+    }
+
+    @Then("^I verify todays deal is less than \"([^\"]*)\" rs$")
+    public void i_verify_todays_deal_is_less_than_something_rs(String expectedDealPriceStr) throws Throwable {
+
+
+        hotelsSearchResult.clickStar("4");
+
+        int expectedDealPrice = Integer.parseInt(expectedDealPriceStr);
+        int actualdealPrice = hotelsSearchResult.getDealPrice();
+
+        System.out.println(hotelsSearchResult.getDealPrice());
+
+        boolean result = actualdealPrice <expectedDealPrice;
+
+        Assert.assertTrue(result,"the actual deal price is greater than:"+expectedDealPrice);
+
+
+    }
+
 }
